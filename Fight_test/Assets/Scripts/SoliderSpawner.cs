@@ -20,7 +20,7 @@ public class SoliderSpawner : MonoBehaviour
     {
         int num = 0;
 
-        while(num < 4)
+        while(num < 3)
         {
             if (index == 0)
             {
