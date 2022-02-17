@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -325,7 +325,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -360,7 +360,7 @@ GameObject:
   - component: {fileID: 845070221}
   - component: {fileID: 845070220}
   m_Layer: 0
-  m_Name: SolidersSpawner
+  m_Name: SoldiersSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -375,14 +375,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 845070219}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d5b151768b1c4cf189c8268694ab58b, type: 3}
+  m_Script: {fileID: 11500000, guid: cba8fb50435eb4f84a80369788f924b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  solider:
-  - {fileID: 5583267562232385703, guid: ad8e5f98b57c44c68baa98012ebcc797, type: 3}
-  - {fileID: 6011529547320981354, guid: 3d04ecb4274934c94923d67631794ac9, type: 3}
-  soliderPosition: {x: 0, y: 0, z: 0}
-  soliderRotation: {x: 0, y: 0, z: 0}
+  soldier:
+  - {fileID: 7939270960928653756, guid: ad8e5f98b57c44c68baa98012ebcc797, type: 3}
+  - {fileID: 3878726180055104037, guid: 3d04ecb4274934c94923d67631794ac9, type: 3}
+  soldierPosition: {x: 0, y: 0, z: 0}
+  soldierRotation: {x: 0, y: 0, z: 0}
 --- !u!4 &845070221
 Transform:
   m_ObjectHideFlags: 0
