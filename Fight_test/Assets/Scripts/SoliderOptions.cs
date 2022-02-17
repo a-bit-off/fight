@@ -7,12 +7,13 @@ public class SoliderOptions : MonoBehaviour
 {
     [SerializeField] float radius;
     [SerializeField] int damage;
-    [SerializeField] int live = 10;
+    [SerializeField] int live = 12;
 
     [SerializeField] private int layer = 10; //For BLUE
     [SerializeField] private RaycastHit hit;
     [SerializeField] private Ray ray;
     [SerializeField] private bool flag = true;
+    [SerializeField] private string enemyTag;
 
     //Find
     GameObject[] enemy;
@@ -27,14 +28,15 @@ public class SoliderOptions : MonoBehaviour
         Time.timeScale = 1.0f;
         _rb = GetComponent<Rigidbody>();
 
-        damage = (int)Random.Range(1, 3);
+        damage = (int)Random.Range(3, 5);
         radius = (int)Random.Range(5, 11);
-
+        BlueOrRed();
     }
 
     private void Update()
     {
-        enemy = GameObject.FindGameObjectsWithTag("SoldierBlue");
+        enemy = GameObject.FindGameObjectsWithTag(enemyTag);
+
         ray = new Ray(transform.position, transform.forward);
         Debug.DrawRay(transform.position, transform.forward * radius, Color.yellow);
   
@@ -122,5 +124,19 @@ public class SoliderOptions : MonoBehaviour
         }
         else
             return true;
+    }
+
+    private void BlueOrRed()
+    {
+        if (gameObject.layer == 9)
+        {
+            layer = 10;
+            enemyTag = "SoldierBlue";
+        }
+        else
+        {
+            layer = 9;
+            enemyTag = "SoldierRed";
+        }
     }
 }
