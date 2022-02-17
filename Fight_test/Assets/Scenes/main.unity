@@ -154,6 +154,7 @@ MonoBehaviour:
   - {fileID: 5583267562232385703, guid: ad8e5f98b57c44c68baa98012ebcc797, type: 3}
   - {fileID: 6011529547320981354, guid: 3d04ecb4274934c94923d67631794ac9, type: 3}
   soliderPosition: {x: 0, y: 0, z: 0}
+  soliderRotation: {x: 0, y: 0, z: 0}
 --- !u!4 &845070221
 Transform:
   m_ObjectHideFlags: 0

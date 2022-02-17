@@ -5,7 +5,7 @@ using UnityEngine;
 public class SoliderSpawner : MonoBehaviour
 {
     [SerializeField] GameObject[] solider;
-    [SerializeField] private Vector3 soliderPosition;
+    [SerializeField] private Vector3 soliderPosition, soliderRotation;
     private List<Vector3> allSolidersPositions = new List<Vector3> { }; //динамический список занятых позиций
 
 
@@ -13,7 +13,6 @@ public class SoliderSpawner : MonoBehaviour
     {
         SpawnSoliders(0); //спавн красного, затем синего солдата
         SpawnSoliders(1);
-
     }
 
     private void SpawnSoliders(int index)
@@ -26,11 +25,13 @@ public class SoliderSpawner : MonoBehaviour
             {
                 soliderPosition.x = (int)Random.RandomRange(-3, 4);
                 soliderPosition.z = (int)Random.RandomRange(-6, -3);
+                soliderRotation = new Vector3(0, 0, 0);
             }
             else if (index == 1)
             {
                 soliderPosition.x = (int)Random.RandomRange(-3, 4);
                 soliderPosition.z = (int)Random.RandomRange(4, 7);
+                soliderRotation = new Vector3(0, 180, 0);
             }
 
             if (IsPositionEmpty(soliderPosition))
@@ -39,7 +40,7 @@ public class SoliderSpawner : MonoBehaviour
                 num += 1;
 
                 //функция спавна
-                Instantiate(solider[index], soliderPosition, transform.rotation);
+                Instantiate(solider[index], soliderPosition, Quaternion.Euler(soliderRotation));
             }
 
         }

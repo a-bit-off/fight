@@ -24,7 +24,7 @@ public class SoliderOptions : MonoBehaviour
 
     private void Start()
     {
-
+        Time.timeScale = 1.0f;
         _rb = GetComponent<Rigidbody>();
 
         damage = (int)Random.Range(1, 3);
@@ -35,8 +35,6 @@ public class SoliderOptions : MonoBehaviour
     private void Update()
     {
         enemy = GameObject.FindGameObjectsWithTag("SoldierBlue");
-        Debug.Log("enemy = " + enemy.Length);
-
         ray = new Ray(transform.position, transform.forward);
         Debug.DrawRay(transform.position, transform.forward * radius, Color.yellow);
   
@@ -62,8 +60,12 @@ public class SoliderOptions : MonoBehaviour
             flag = true;
         }
 
-        FindClosestEnemy();
-        MovementLogic();
+        
+        if (StopGame())
+        {
+            FindClosestEnemy();
+            MovementLogic();
+        }
     }
 
 
@@ -104,10 +106,21 @@ public class SoliderOptions : MonoBehaviour
         if(FindClosestEnemy().gameObject.transform != null)
         {
             Vector3 movement = new Vector3(0f, 0.0f, 1f);
-
+            
             transform.LookAt(FindClosestEnemy().gameObject.transform);
 
             transform.Translate(movement * Speed * Time.deltaTime);
         }
+    }
+
+    bool  StopGame()
+    {
+        if (enemy.Length <= 0)
+        {
+            Time.timeScale = 0.0f;
+            return false;
+        }
+        else
+            return true;
     }
 }
