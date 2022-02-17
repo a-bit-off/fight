@@ -57,3 +57,68 @@ public class SoliderSpawner : MonoBehaviour
         return true;
     }
 }
+
+/*
+    //RED
+public class SoliderOptions : MonoBehaviour
+{
+    [SerializeField] int speed;
+    [SerializeField] float radius;
+    [SerializeField] int damage;
+    [SerializeField] int live = 10;
+
+    [SerializeField] int layer = 10; //For BLUE
+    [SerializeField] RaycastHit hit;
+    [SerializeField] Ray ray;
+    bool flag = true;
+
+
+    private void Start()
+    {
+        damage = (int)Random.Range(1, 3);
+        radius = (int)Random.Range(5, 11);
+        speed = (int)Random.Range(1, 4);
+    }
+
+    private void Update()
+    {
+        ray = new Ray(transform.position, transform.forward);
+        Debug.DrawRay(transform.position, transform.forward * radius, Color.yellow);
+  
+        if (Physics.Raycast(ray, out hit))
+        {
+            if (hit.collider.gameObject.layer == layer)
+            {
+                if (flag)
+                {
+                    InvokeRepeating("DPS", 1f, 1f);
+                    flag = false;
+                }                
+            }
+            else
+            {
+                CancelInvoke();
+                flag = true;
+            }
+        }
+        else
+        {
+            CancelInvoke();
+            flag = true;
+        }
+    }
+    void DPS()
+    {
+        if (Physics.Raycast(ray, out hit))
+        {
+            if (hit.collider.gameObject.GetComponent<SoliderOptions>().live <= 0)
+            {
+                Destroy(hit.collider.gameObject);
+            }
+            else
+                hit.collider.gameObject.GetComponent<SoliderOptions>().live -= damage;
+        }
+    }
+}
+
+    */

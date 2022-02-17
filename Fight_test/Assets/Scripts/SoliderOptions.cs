@@ -2,55 +2,110 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//RED
 public class SoliderOptions : MonoBehaviour
 {
-    [SerializeField] int speed;
     [SerializeField] float radius;
     [SerializeField] int damage;
     [SerializeField] int live = 10;
 
+    [SerializeField] private int layer = 10; //For BLUE
+    [SerializeField] private RaycastHit hit;
+    [SerializeField] private Ray ray;
+    [SerializeField] private bool flag = true;
 
-    //Raycast
+    //Find
+    GameObject[] enemy;
+    GameObject closest;
+
+    //Movement
+    public float Speed = 10f;
+    private Rigidbody _rb;
+
     private void Start()
     {
-        damage = (int)Random.Range(1, 4);
-        radius = (int)Random.Range(5, 11);
-        speed = (int)Random.Range(1, 4);
-    }
+        enemy = GameObject.FindGameObjectsWithTag("SoldierBlue");
 
+        _rb = GetComponent<Rigidbody>();
+
+        damage = (int)Random.Range(1, 3);
+        radius = (int)Random.Range(5, 11);
+
+    }
 
     private void Update()
     {
-        Ray ray = new Ray(transform.position, transform.forward);
-
-        //RED
-        if (gameObject.layer == 9)
-        {
-            Debug.DrawRay(transform.position, transform.forward * radius, Color.yellow);
-            RaycastHIT(10, ray);
-        }
-
-        //BLUE
-        else if (gameObject.layer == 10)
-        {
-            Debug.DrawRay(transform.position, -transform.forward * radius, Color.yellow);
-            RaycastHIT(9, ray);
-        }
-    }
-
-    private void RaycastHIT(int layer, Ray ray)
-    {
-        RaycastHit hit;
-
+        ray = new Ray(transform.position, transform.forward);
+        Debug.DrawRay(transform.position, transform.forward * radius, Color.yellow);
+  
         if (Physics.Raycast(ray, out hit))
         {
             if (hit.collider.gameObject.layer == layer)
             {
-                hit.collider.gameObject.GetComponent<SoliderOptions>().live -= damage;
-                Debug.Log("live_" + hit.collider.gameObject.name + " = " + hit.collider.gameObject.GetComponent<SoliderOptions>().live);
+                if (flag)
+                {
+                    InvokeRepeating("DPS", 1f, 1f);
+                    flag = false;
+                }                
             }
+            else
+            {
+                CancelInvoke();
+                flag = true;
+            }
+        }
+        else
+        {
+            CancelInvoke();
+            flag = true;
         }
     }
 
 
+    void FixedUpdate()
+    {
+        MovementLogic();
+    }
+
+
+    void DPS()
+    {
+        if (Physics.Raycast(ray, out hit))
+        {
+            if (hit.collider.gameObject.GetComponent<SoliderOptions>().live <= 0)
+            {
+                Destroy(hit.collider.gameObject);
+            }
+            else
+                hit.collider.gameObject.GetComponent<SoliderOptions>().live -= damage;
+        }
+    }
+
+    GameObject FindClosestEnemy()
+    {
+        float distance = Mathf.Infinity;
+        Vector3 position = transform.position;
+
+        foreach(GameObject go in enemy)
+        {
+            Vector3 diff = go.transform.position - position;
+            float curDistance = diff.sqrMagnitude;
+            if (curDistance < distance)
+            {
+                closest = go;
+                distance = curDistance;
+            }
+        }
+        return closest;
+    }
+
+    private void MovementLogic()
+    {
+
+        Vector3 movement = new Vector3(0f, 0.0f, 1f);
+        Vector3 movement2 = new Vector3(3f, 0f, 4f);
+
+
+        transform.Translate(movement * Speed * Time.fixedDeltaTime, hit.collider.gameObject.transform);
+    }
 }
