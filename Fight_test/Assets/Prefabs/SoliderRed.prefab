@@ -129,4 +129,4 @@ MonoBehaviour:
   layer: 10
   flag: 1
   enemyTag: 
-  Speed: 10
+  Speed: 2
