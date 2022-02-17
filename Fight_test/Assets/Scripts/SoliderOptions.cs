@@ -15,6 +15,9 @@ public class SoliderOptions : MonoBehaviour
     [SerializeField] private bool flag = true;
     [SerializeField] private string enemyTag;
 
+
+    ScenesManager SM = new ScenesManager();
+
     //Find
     GameObject[] enemy;
     GameObject closest;
@@ -25,7 +28,6 @@ public class SoliderOptions : MonoBehaviour
 
     private void Start()
     {
-        Time.timeScale = 1.0f;
         _rb = GetComponent<Rigidbody>();
 
         damage = (int)Random.Range(3, 5);
@@ -52,23 +54,28 @@ public class SoliderOptions : MonoBehaviour
             }
             else
             {
-                CancelInvoke();
+                CancelInvoke("DPS");
                 flag = true;
             }
         }
         else
         {
-            CancelInvoke();
+            CancelInvoke("DPS");
             flag = true;
         }
 
-        
-        if (StopGame())
+
+        if (enemy.Length > 0)
         {
             FindClosestEnemy();
             MovementLogic();
         }
+        else
+        {
+            SM.Restart();
+        }
     }
+
 
 
 
@@ -113,17 +120,6 @@ public class SoliderOptions : MonoBehaviour
 
             transform.Translate(movement * Speed * Time.deltaTime);
         }
-    }
-
-    bool  StopGame()
-    {
-        if (enemy.Length <= 0)
-        {
-            Time.timeScale = 0.0f;
-            return false;
-        }
-        else
-            return true;
     }
 
     private void BlueOrRed()
